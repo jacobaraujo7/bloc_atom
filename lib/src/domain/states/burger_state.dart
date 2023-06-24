@@ -71,5 +71,5 @@ class ErrorBurgerState extends BurgerState {
     required super.exception,
     required super.burgers,
     required super.cartBurgers,
-  }) : super(loading: true);
+  }) : super(loading: false);
 }
