@@ -12,7 +12,7 @@ void main() {
     providers: [
       Provider.value(value: Uno()),
       Provider<BurgerService>(create: (ctx) => BurgerServiceImpl(ctx.read())),
-      // BLOC
+      // CUBIT
       BlocProvider(create: (ctx) => BurgerCubit(ctx.read())),
     ],
     child: const AppWidget(),
