@@ -44,7 +44,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final store = context.read<BurgerStore>();
-    final (state, isLoading) = context.select(() => (store.state, store.isLoading));
+    final (state, isLoading) = context.select(
+      () => (store.state, store.isLoading),
+    );
 
     return Scaffold(
       key: scaffoldKey,
