@@ -46,6 +46,7 @@ dependencies:
   uno: ^1.1.1
   provider: ^6.0.5
   result_dart: ^1.0.6
+  flutter_bloc: ^8.1.3
 
 dev_dependencies:
   flutter_test:
