@@ -80,7 +80,7 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          if (cartBurgsState.value.isNotEmpty) {
+          if (cartBurgers.isNotEmpty) {
             scaffoldState.openEndDrawer();
           }
         },
