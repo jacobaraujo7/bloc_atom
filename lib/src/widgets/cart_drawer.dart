@@ -7,15 +7,15 @@ class CartDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.callback(() => cartBurgs.length, (value) {
-      if (cartBurgs.isEmpty) {
+    context.callback(() => cartBurgsState.value.length, (value) {
+      if (cartBurgsState.value.isEmpty) {
         if (context.mounted) {
           Navigator.of(context).maybePop();
         }
       }
     });
 
-    context.select(() => [cartBurgs.length, finalValue.value]);
+    context.select(() => [cartBurgsState.value.length, totalValueComputed]);
     return Drawer(
       width: 240,
       child: Padding(
@@ -31,9 +31,9 @@ class CartDrawer extends StatelessWidget {
             const SizedBox(height: 10),
             Expanded(
               child: ListView.builder(
-                itemCount: cartBurgs.length,
+                itemCount: cartBurgsState.value.length,
                 itemBuilder: (context, index) {
-                  final model = cartBurgs[index];
+                  final model = cartBurgsState.value[index];
                   return ListTile(
                     contentPadding: const EdgeInsets.symmetric(horizontal: 12),
                     leading: ClipOval(
@@ -49,7 +49,7 @@ class CartDrawer extends StatelessWidget {
                     trailing: IconButton(
                       icon: const Icon(Icons.remove_circle_outline_rounded),
                       onPressed: () {
-                        removeBurg.setValue(model);
+                        removeBurgAction.setValue(model);
                       },
                     ),
                   );
@@ -62,7 +62,7 @@ class CartDrawer extends StatelessWidget {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Valor: ${finalValue.value}',
+                  'Valor: $totalValueComputed',
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
               ),
@@ -75,7 +75,7 @@ class CartDrawer extends StatelessWidget {
             const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () {
-                cleanCart();
+                cleanCartAction();
               },
               child: const Text('Limpar sacola'),
             ),

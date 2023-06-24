@@ -35,6 +35,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  dson_adapter: ^1.2.0+2  
   asp: ^1.0.3
   chat_bubbles: ^1.4.1
   chat_gpt_flutter: ^1.0.10
@@ -44,6 +45,7 @@ dependencies:
   auto_injector: ^1.0.2+2
   uno: ^1.1.1
   provider: ^6.0.5
+  result_dart: ^1.0.6
 
 dev_dependencies:
   flutter_test:

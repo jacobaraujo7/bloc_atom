@@ -21,12 +21,12 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    fetchBurgs();
+    fetchBurgsAction();
   }
 
   @override
   Widget build(BuildContext context) {
-    context.select(() => [burgers, burgLoading, cartBurgs]);
+    context.select(() => [burgersState, burgerLoadingState, cartBurgsState]);
 
     return Scaffold(
       key: scaffoldKey,
@@ -42,18 +42,18 @@ class _HomePageState extends State<HomePage> {
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
             ),
-            itemCount: burgers.length,
+            itemCount: burgersState.value.length,
             itemBuilder: (context, index) {
-              final model = burgers[index];
+              final model = burgersState.value[index];
               return BurgerCard(
                 model: model,
                 onTap: () {
-                  addBurger.setValue(model);
+                  addBurgerToCartAction.setValue(model);
                 },
               );
             },
           ),
-          if (burgLoading.value)
+          if (burgerLoadingState.value)
             const Align(
               alignment: Alignment.topCenter,
               child: LinearProgressIndicator(),
@@ -62,12 +62,12 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          if (cartBurgs.isNotEmpty) {
+          if (cartBurgsState.value.isNotEmpty) {
             scaffoldState.openEndDrawer();
           }
         },
         child: badges.Badge(
-          badgeContent: Text('${cartBurgs.length}'),
+          badgeContent: Text('${cartBurgsState.value.length}'),
           child: const Icon(Icons.shopping_bag_outlined),
         ),
       ),

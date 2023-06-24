@@ -169,6 +169,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.6"
+  dson_adapter:
+    dependency: "direct main"
+    description:
+      name: dson_adapter
+      sha256: "2a8449a784ba39b61876928f85f8889a9bc80d07f0dbfc5d4122c9f3d7f8ef60"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.0+2"
   fake_async:
     dependency: transitive
     description:
@@ -355,6 +363,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.3"
+  result_dart:
+    dependency: "direct main"
+    description:
+      name: result_dart
+      sha256: "4950aadc2c582a1d09300f5b9effb6a6d7db8b158b108b7b8ad45da481cf21a5"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.6"
   rxdart:
     dependency: "direct main"
     description:

@@ -1,10 +1,11 @@
 import 'package:asp/asp.dart';
+import 'package:atomic_state/src/exceptions/burger_exception.dart';
 import 'package:atomic_state/src/models/burger_model.dart';
 
 // atoms
-final burgers = RxList<BurgerModel>([]);
-final burgLoading = Atom(true);
+final burgersState = Atom<List<BurgerModel>>([]);
+final burgerLoadingState = Atom(true);
+final burgerErrorState = Atom<BurgerException?>(null);
 
 // actions
-final fetchBurgs = Atom.action();
-final addBurger = Atom<BurgerModel?>(null);
+final fetchBurgsAction = Atom.action();

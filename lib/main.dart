@@ -11,7 +11,7 @@ void main() {
   final app = MultiProvider(
     providers: [
       Provider.value(value: Uno()),
-      Provider(create: (ctx) => BurgerService(ctx.read())),
+      Provider<BurgerService>(create: (ctx) => BurgerServiceImpl(ctx.read())),
       // ASP
       Provider(create: (ctx) => BurgerReducer(ctx.read())),
     ],
