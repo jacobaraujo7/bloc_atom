@@ -39,7 +39,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    context.select(() => [burgersState, burgerLoadingState, cartBurgsState]);
+    final (burgers, isLoading, cartBurgers) = context.select(
+      () => (burgersState.value, burgerLoadingState.value, cartBurgsState.value),
+    );
 
     return Scaffold(
       key: scaffoldKey,
@@ -49,7 +51,7 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
       ),
       endDrawer: CartDrawer(
-        burgers: cartBurgsState.value,
+        burgers: cartBurgers,
         onFinalize: cleanCartAction,
         onRemove: removeBurgAction.setValue,
       ),
@@ -59,9 +61,9 @@ class _HomePageState extends State<HomePage> {
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
             ),
-            itemCount: burgersState.value.length,
+            itemCount: burgers.length,
             itemBuilder: (context, index) {
-              final model = burgersState.value[index];
+              final model = burgers[index];
               return BurgerCard(
                 model: model,
                 onTap: () {
@@ -70,7 +72,7 @@ class _HomePageState extends State<HomePage> {
               );
             },
           ),
-          if (burgerLoadingState.value)
+          if (isLoading)
             const Align(
               alignment: Alignment.topCenter,
               child: LinearProgressIndicator(),
