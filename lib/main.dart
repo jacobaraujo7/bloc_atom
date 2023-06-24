@@ -1,4 +1,4 @@
-import 'package:atomic_state/src/domain/blocs/burger_bloc.dart';
+import 'package:atomic_state/src/domain/cubit/burger_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
@@ -13,7 +13,7 @@ void main() {
       Provider.value(value: Uno()),
       Provider<BurgerService>(create: (ctx) => BurgerServiceImpl(ctx.read())),
       // BLOC
-      BlocProvider(create: (ctx) => BurgerBloc(ctx.read())),
+      BlocProvider(create: (ctx) => BurgerCubit(ctx.read())),
     ],
     child: const AppWidget(),
   );

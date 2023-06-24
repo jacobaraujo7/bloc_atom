@@ -1,20 +1,16 @@
 import 'package:atomic_state/src/data/services/burger_service.dart';
-import 'package:atomic_state/src/domain/events/burger_event.dart';
 import 'package:atomic_state/src/domain/states/burger_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:result_dart/result_dart.dart';
 
-class BurgerBloc extends Bloc<BurgerEvent, BurgerState> {
+import '../models/burger_model.dart';
+
+class BurgerCubit extends Cubit<BurgerState> {
   final BurgerService service;
 
-  BurgerBloc(this.service) : super(BurgerState.start()) {
-    on<FetchBurgersEvent>(_fetchBurgersEvent);
-    on<CleanCartBurgerEvent>(_cleanCartBurgerEvent);
-    on<AddBurgerToCartEvent>(_addBurgerToCartEvent);
-    on<RemoveBurgerFromCartEvent>(_removeBurgerToCartEvent);
-  }
+  BurgerCubit(this.service) : super(BurgerState.start());
 
-  void _fetchBurgersEvent(event, emit) async {
+  void fetchBurgersEvent() async {
     emit(state.setLoading());
 
     final newState = await service
@@ -24,20 +20,20 @@ class BurgerBloc extends Bloc<BurgerEvent, BurgerState> {
     emit(newState);
   }
 
-  void _cleanCartBurgerEvent(event, emit) async {
+  void cleanCartBurgerEvent() async {
     emit(state.setCartBurgers(cartBurgers: []));
   }
 
-  void _addBurgerToCartEvent(AddBurgerToCartEvent event, emit) async {
+  void addBurgerToCartEvent(BurgerModel burger) async {
     final cart = state.cartBurgers.toList();
-    cart.add(event.burger);
+    cart.add(burger);
     final newState = state.setCartBurgers(cartBurgers: cart);
     emit(newState);
   }
 
-  void _removeBurgerToCartEvent(RemoveBurgerFromCartEvent event, emit) async {
+  void removeBurgerToCartEvent(BurgerModel burger) async {
     final cart = state.cartBurgers.toList();
-    cart.remove(event.burger);
+    cart.remove(burger);
     final newState = state.setCartBurgers(cartBurgers: cart);
     emit(newState);
   }

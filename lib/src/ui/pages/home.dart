@@ -1,7 +1,6 @@
 import 'dart:async';
 
-import 'package:atomic_state/src/domain/blocs/burger_bloc.dart';
-import 'package:atomic_state/src/domain/events/burger_event.dart';
+import 'package:atomic_state/src/domain/cubit/burger_cubit.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -25,10 +24,10 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    final bloc = context.read<BurgerBloc>();
-    bloc.add(FetchBurgersEvent());
+    final cubit = context.read<BurgerCubit>();
+    cubit.fetchBurgersEvent();
 
-    _endDrawerListener = bloc.stream //
+    _endDrawerListener = cubit.stream //
         .where((state) => state.cartBurgers.isEmpty && scaffoldState.isEndDrawerOpen)
         .listen((event) {
       scaffoldState.closeEndDrawer();
@@ -43,8 +42,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = context.watch<BurgerBloc>();
-    final state = bloc.state;
+    final cubit = context.watch<BurgerCubit>();
+    final state = cubit.state;
 
     return Scaffold(
       key: scaffoldKey,
@@ -55,12 +54,8 @@ class _HomePageState extends State<HomePage> {
       ),
       endDrawer: CartDrawer(
         burgers: state.cartBurgers,
-        onFinalize: () {
-          bloc.add(CleanCartBurgerEvent());
-        },
-        onRemove: (burger) {
-          bloc.add(RemoveBurgerFromCartEvent(burger));
-        },
+        onFinalize: cubit.cleanCartBurgerEvent,
+        onRemove: cubit.removeBurgerToCartEvent,
       ),
       body: Stack(
         children: [
@@ -74,7 +69,7 @@ class _HomePageState extends State<HomePage> {
               return BurgerCard(
                 model: model,
                 onTap: () {
-                  bloc.add(AddBurgerToCartEvent(model));
+                  cubit.addBurgerToCartEvent(model);
                 },
               );
             },
