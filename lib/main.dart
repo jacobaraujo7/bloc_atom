@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:uno/uno.dart';
 
 import 'src/pages/home.dart';
+import 'src/reducers/cart_burger_reducer.dart';
 import 'src/services/burger_service.dart';
 
 void main() {
@@ -14,11 +15,13 @@ void main() {
       Provider<BurgerService>(create: (ctx) => BurgerServiceImpl(ctx.read())),
       // ASP
       Provider(create: (ctx) => BurgerReducer(ctx.read())),
+      Provider(create: (ctx) => CartBurgerReducer()),
     ],
     builder: (context, child) {
       return RxRoot(
         reducers: [
           context.read<BurgerReducer>(),
+          context.read<CartBurgerReducer>(),
         ],
         child: const MyApp(),
       );

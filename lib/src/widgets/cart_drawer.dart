@@ -1,21 +1,26 @@
-import 'package:asp/asp.dart';
-import 'package:atomic_state/src/atom/cart_atom.dart';
+import 'package:atomic_state/src/models/burger_model.dart';
 import 'package:flutter/material.dart';
 
 class CartDrawer extends StatelessWidget {
-  const CartDrawer({super.key});
+  final List<BurgerModel> burgers;
+  final void Function()? onFinalize;
+  final void Function(BurgerModel burger)? onRemove;
+
+  const CartDrawer({super.key, required this.burgers, this.onFinalize, this.onRemove});
+
+  String get totalValue {
+    if (burgers.isEmpty) {
+      return r'R$ 0.00';
+    }
+    final value = burgers.fold(
+      0.0,
+      (previousValue, element) => previousValue + element.price,
+    );
+    return r'R$ ' + value.toStringAsFixed(2);
+  }
 
   @override
   Widget build(BuildContext context) {
-    context.callback(() => cartBurgsState.value.length, (value) {
-      if (cartBurgsState.value.isEmpty) {
-        if (context.mounted) {
-          Navigator.of(context).maybePop();
-        }
-      }
-    });
-
-    context.select(() => [cartBurgsState.value.length, totalValueComputed]);
     return Drawer(
       width: 240,
       child: Padding(
@@ -31,9 +36,9 @@ class CartDrawer extends StatelessWidget {
             const SizedBox(height: 10),
             Expanded(
               child: ListView.builder(
-                itemCount: cartBurgsState.value.length,
+                itemCount: burgers.length,
                 itemBuilder: (context, index) {
-                  final model = cartBurgsState.value[index];
+                  final model = burgers[index];
                   return ListTile(
                     contentPadding: const EdgeInsets.symmetric(horizontal: 12),
                     leading: ClipOval(
@@ -49,7 +54,7 @@ class CartDrawer extends StatelessWidget {
                     trailing: IconButton(
                       icon: const Icon(Icons.remove_circle_outline_rounded),
                       onPressed: () {
-                        removeBurgAction.setValue(model);
+                        onRemove?.call(model);
                       },
                     ),
                   );
@@ -62,7 +67,7 @@ class CartDrawer extends StatelessWidget {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Valor: $totalValueComputed',
+                  'Valor: $totalValue',
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
               ),
@@ -74,9 +79,7 @@ class CartDrawer extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             ElevatedButton(
-              onPressed: () {
-                cleanCartAction();
-              },
+              onPressed: onFinalize,
               child: const Text('Limpar sacola'),
             ),
           ],

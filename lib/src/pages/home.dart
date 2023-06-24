@@ -18,10 +18,23 @@ class _HomePageState extends State<HomePage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   ScaffoldState get scaffoldState => scaffoldKey.currentState!;
 
+  late final RxDisposer _endDrawerListener;
+
   @override
   void initState() {
     super.initState();
     fetchBurgsAction();
+    _endDrawerListener = rxObserver(
+      () => cartBurgsState.value,
+      filter: () => cartBurgsState.value.isEmpty,
+      effect: (value) => scaffoldState.closeEndDrawer(),
+    );
+  }
+
+  @override
+  void dispose() {
+    _endDrawerListener();
+    super.dispose();
   }
 
   @override
@@ -35,7 +48,11 @@ class _HomePageState extends State<HomePage> {
         title: const Text('Flutter Burge'),
         centerTitle: true,
       ),
-      endDrawer: const CartDrawer(),
+      endDrawer: CartDrawer(
+        burgers: cartBurgsState.value,
+        onFinalize: cleanCartAction,
+        onRemove: removeBurgAction.setValue,
+      ),
       body: Stack(
         children: [
           GridView.builder(
