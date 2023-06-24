@@ -227,6 +227,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_triple:
+    dependency: "direct main"
+    description:
+      name: flutter_triple
+      sha256: c4751dabfb00eabfeb3e240e61101aa868881bf323026ee46c3c3e7126b870df
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0+1"
   glob:
     dependency: transitive
     description:
@@ -387,6 +395,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.6"
+  rx_notifier:
+    dependency: transitive
+    description:
+      name: rx_notifier
+      sha256: "278916b463cd190de88d6f167f811a3398bbc2b2a8adba6cb69b0f1652c2d72e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.4"
+  rx_notifier_annotation:
+    dependency: transitive
+    description:
+      name: rx_notifier_annotation
+      sha256: "362496563d617aa6fa21ab9c131f66348f3266b6580d69ecc23d2c23a52070a2"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   rxdart:
     dependency: "direct main"
     description:
@@ -464,6 +488,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.5.1"
+  triple:
+    dependency: transitive
+    description:
+      name: triple
+      sha256: "0d049c7d44fbe093432c72ec059a958b1b22e0748b3b90e806383ef2376f34cb"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0"
   typed_data:
     dependency: transitive
     description:

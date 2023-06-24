@@ -1,10 +1,9 @@
-import 'dart:async';
-
-import 'package:atomic_state/src/domain/cubit/burger_cubit.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_triple/flutter_triple.dart';
+import 'package:provider/provider.dart' hide SelectContext;
 
+import '../../domain/store/burger_store.dart';
 import '../widgets/burger_card.dart';
 import '../widgets/cart_drawer.dart';
 
@@ -19,31 +18,33 @@ class _HomePageState extends State<HomePage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   ScaffoldState get scaffoldState => scaffoldKey.currentState!;
 
-  late final StreamSubscription _endDrawerListener;
+  late final Disposer _endDrawerListener;
 
   @override
   void initState() {
     super.initState();
-    final cubit = context.read<BurgerCubit>();
-    cubit.fetchBurgersEvent();
+    final store = context.read<BurgerStore>();
+    store.fetchBurgersEvent();
 
-    _endDrawerListener = cubit.stream //
-        .where((state) => state.cartBurgers.isEmpty && scaffoldState.isEndDrawerOpen)
-        .listen((event) {
-      scaffoldState.closeEndDrawer();
-    });
+    _endDrawerListener = store.observer(
+      onState: (state) {
+        if (state.cartBurgers.isEmpty && scaffoldState.isEndDrawerOpen) {
+          scaffoldState.closeEndDrawer();
+        }
+      },
+    );
   }
 
   @override
   void dispose() {
-    _endDrawerListener.cancel();
+    _endDrawerListener();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.watch<BurgerCubit>();
-    final state = cubit.state;
+    final store = context.read<BurgerStore>();
+    final (state, isLoading) = context.select(() => (store.state, store.isLoading));
 
     return Scaffold(
       key: scaffoldKey,
@@ -54,8 +55,8 @@ class _HomePageState extends State<HomePage> {
       ),
       endDrawer: CartDrawer(
         burgers: state.cartBurgers,
-        onFinalize: cubit.cleanCartBurgerEvent,
-        onRemove: cubit.removeBurgerToCartEvent,
+        onFinalize: store.cleanCartBurgerEvent,
+        onRemove: store.removeBurgerToCartEvent,
       ),
       body: Stack(
         children: [
@@ -69,12 +70,12 @@ class _HomePageState extends State<HomePage> {
               return BurgerCard(
                 model: model,
                 onTap: () {
-                  cubit.addBurgerToCartEvent(model);
+                  store.addBurgerToCartEvent(model);
                 },
               );
             },
           ),
-          if (state.loading)
+          if (isLoading)
             const Align(
               alignment: Alignment.topCenter,
               child: LinearProgressIndicator(),

@@ -1,17 +1,12 @@
-import 'package:atomic_state/src/data/exceptions/burger_exception.dart';
 import 'package:atomic_state/src/domain/models/burger_model.dart';
 
 sealed class BurgerState {
   final List<BurgerModel> burgers;
   final List<BurgerModel> cartBurgers;
-  final bool loading;
-  final BurgerException? exception;
 
   const BurgerState({
     required this.burgers,
     required this.cartBurgers,
-    this.loading = false,
-    this.exception,
   });
 
   factory BurgerState.start() => const StartBurgerState();
@@ -34,18 +29,6 @@ sealed class BurgerState {
       cartBurgers: cartBurgers ?? this.cartBurgers,
     );
   }
-
-  BurgerState setLoading() {
-    return LoadingBurgerState(burgers: burgers, cartBurgers: cartBurgers);
-  }
-
-  BurgerState setError(BurgerException exception) {
-    return ErrorBurgerState(
-      exception: exception,
-      burgers: burgers,
-      cartBurgers: cartBurgers,
-    );
-  }
 }
 
 class StartBurgerState extends BurgerState {
@@ -57,19 +40,4 @@ class GettedBurgerState extends BurgerState {
     required super.burgers,
     required super.cartBurgers,
   });
-}
-
-class LoadingBurgerState extends BurgerState {
-  const LoadingBurgerState({
-    required super.burgers,
-    required super.cartBurgers,
-  }) : super(loading: true);
-}
-
-class ErrorBurgerState extends BurgerState {
-  const ErrorBurgerState({
-    required super.exception,
-    required super.burgers,
-    required super.cartBurgers,
-  }) : super(loading: true);
 }
