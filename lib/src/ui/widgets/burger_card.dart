@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../models/burger_model.dart';
+import '../../domain/models/burger_model.dart';
 
 class BurgerCard extends StatelessWidget {
   final BurgerModel model;

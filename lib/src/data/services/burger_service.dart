@@ -1,4 +1,4 @@
-import 'package:atomic_state/src/models/burger_model.dart';
+import 'package:atomic_state/src/domain/models/burger_model.dart';
 import 'package:dson_adapter/dson_adapter.dart';
 import 'package:result_dart/result_dart.dart';
 import 'package:uno/uno.dart';

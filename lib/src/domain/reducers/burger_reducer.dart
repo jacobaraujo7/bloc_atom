@@ -1,8 +1,8 @@
 import 'package:asp/asp.dart';
-import 'package:atomic_state/src/atom/burger_atom.dart';
+import 'package:atomic_state/src/domain/atom/burger_atom.dart';
 import 'package:result_dart/result_dart.dart';
 
-import '../services/burger_service.dart';
+import '../../data/services/burger_service.dart';
 
 class BurgerReducer extends Reducer {
   final BurgerService service;

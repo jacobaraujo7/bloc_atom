@@ -1,5 +1,5 @@
 import 'package:asp/asp.dart';
-import 'package:atomic_state/src/atom/cart_atom.dart';
+import 'package:atomic_state/src/domain/atom/cart_atom.dart';
 
 class CartBurgerReducer extends Reducer {
   CartBurgerReducer() {
