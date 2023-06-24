@@ -6,7 +6,6 @@ import 'package:uno/uno.dart';
 
 import 'src/app_widget.dart';
 import 'src/data/services/burger_service.dart';
-import 'src/domain/reducers/cart_burger_reducer.dart';
 
 void main() {
   final app = MultiProvider(
@@ -15,13 +14,11 @@ void main() {
       Provider<BurgerService>(create: (ctx) => BurgerServiceImpl(ctx.read())),
       // ASP
       Provider(create: (ctx) => BurgerReducer(ctx.read())),
-      Provider(create: (ctx) => CartBurgerReducer()),
     ],
     builder: (context, child) {
       return RxRoot(
         reducers: [
           context.read<BurgerReducer>(),
-          context.read<CartBurgerReducer>(),
         ],
         child: const AppWidget(),
       );

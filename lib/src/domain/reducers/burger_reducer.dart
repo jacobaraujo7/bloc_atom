@@ -9,6 +9,9 @@ class BurgerReducer extends Reducer {
 
   BurgerReducer(this.service) {
     on(() => [fetchBurgsAction], _fetchBurgs);
+    on(() => [addBurgerToCartAction], _addBurger);
+    on(() => [removeBurgAction], _removeBurger);
+    on(() => [cleanCartAction], _cleanCart);
   }
 
   _fetchBurgs() async {
@@ -22,5 +25,26 @@ class BurgerReducer extends Reducer {
         );
 
     burgerLoadingState.value = false;
+  }
+
+  _addBurger() {
+    final burg = addBurgerToCartAction.value;
+    if (burg != null) {
+      cartBurgsState.value.add(burg);
+      cartBurgsState();
+    }
+  }
+
+  _removeBurger() {
+    final burg = removeBurgAction.value;
+    if (burg != null) {
+      cartBurgsState.value.remove(burg);
+      cartBurgsState();
+    }
+  }
+
+  _cleanCart() {
+    cartBurgsState.value.clear();
+    cartBurgsState();
   }
 }
