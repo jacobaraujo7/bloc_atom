@@ -1,16 +1,25 @@
-# atomic_state
+# ASP X BLOC X CUBIT X TRIPLE
 
-A new Flutter project.
+Each branch represents a state management approach.
+Have fun!
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+## ASP
 
-A few resources to get you started if this is your first Flutter project:
+- [Available on branch **asp**](https://github.com/jacobaraujo7/bloc_atom/tree/asp).
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## ASP WITH STATE PATTERN
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- [Available on branch **asp_with_state**](https://github.com/jacobaraujo7/bloc_atom/tree/asp_with_state).
+
+## BLOC
+
+- [Available on branch **bloc**](https://github.com/jacobaraujo7/bloc_atom/tree/bloc).
+
+## CUBIT
+
+- [Available on branch **cubit**](https://github.com/jacobaraujo7/bloc_atom/tree/cubit).
+
+## TRIPLE
+
+- [Available on branch **cubit**](https://github.com/jacobaraujo7/bloc_atom/tree/triple).
