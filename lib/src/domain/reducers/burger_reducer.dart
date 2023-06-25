@@ -10,7 +10,7 @@ class BurgerReducer extends Reducer {
   BurgerReducer(this.service) {
     on(() => [fetchBurgsAction], _fetchBurgs);
     on(() => [addBurgerToCartAction], _addBurger);
-    on(() => [removeBurgAction], _removeBurger);
+    on(() => [removeBurgerAction], _removeBurger);
     on(() => [cleanCartAction], _cleanCart);
   }
 
@@ -38,7 +38,7 @@ class BurgerReducer extends Reducer {
   }
 
   _removeBurger() {
-    final burger = addBurgerToCartAction.value;
+    final burger = removeBurgerAction.value;
     if (burger != null) {
       final cart = burgerState.value.cartBurgers.toList();
       cart.remove(burger);

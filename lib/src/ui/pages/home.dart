@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> {
       endDrawer: CartDrawer(
         burgers: state.cartBurgers,
         onFinalize: cleanCartAction,
-        onRemove: removeBurgAction.setValue,
+        onRemove: removeBurgerAction.setValue,
       ),
       body: Stack(
         children: [

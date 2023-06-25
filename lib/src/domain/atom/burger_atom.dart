@@ -9,5 +9,5 @@ final burgerState = Atom<BurgerState>(BurgerState.start());
 // actions
 final fetchBurgsAction = Atom.action();
 final addBurgerToCartAction = Atom<BurgerModel?>(null);
-final removeBurgAction = Atom<BurgerModel?>(null);
+final removeBurgerAction = Atom<BurgerModel?>(null);
 final cleanCartAction = Atom.action();
