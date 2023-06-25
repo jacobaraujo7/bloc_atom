@@ -24,8 +24,8 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     fetchBurgsAction();
     _endDrawerListener = rxObserver(
-      () => cartBurgsState.value,
-      filter: () => cartBurgsState.value.isEmpty,
+      () => burgerState.value,
+      filter: () => burgerState.value.cartBurgers.isEmpty,
       effect: (value) => scaffoldState.closeEndDrawer(),
     );
   }
@@ -38,9 +38,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final (burgers, isLoading, cartBurgers) = context.select(
-      () => (burgersState.value, burgerLoadingState.value, cartBurgsState.value),
-    );
+    final state = context.select(() => burgerState.value);
 
     return Scaffold(
       key: scaffoldKey,
@@ -50,7 +48,7 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
       ),
       endDrawer: CartDrawer(
-        burgers: cartBurgers,
+        burgers: state.cartBurgers,
         onFinalize: cleanCartAction,
         onRemove: removeBurgAction.setValue,
       ),
@@ -60,9 +58,9 @@ class _HomePageState extends State<HomePage> {
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
             ),
-            itemCount: burgers.length,
+            itemCount: state.burgers.length,
             itemBuilder: (context, index) {
-              final model = burgers[index];
+              final model = state.burgers[index];
               return BurgerCard(
                 model: model,
                 onTap: () {
@@ -71,7 +69,7 @@ class _HomePageState extends State<HomePage> {
               );
             },
           ),
-          if (isLoading)
+          if (state.loading)
             const Align(
               alignment: Alignment.topCenter,
               child: LinearProgressIndicator(),
@@ -80,12 +78,12 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          if (cartBurgers.isNotEmpty) {
+          if (state.cartBurgers.isNotEmpty) {
             scaffoldState.openEndDrawer();
           }
         },
         child: badges.Badge(
-          badgeContent: Text('${cartBurgsState.value.length}'),
+          badgeContent: Text('${state.cartBurgers.length}'),
           child: const Icon(Icons.shopping_bag_outlined),
         ),
       ),

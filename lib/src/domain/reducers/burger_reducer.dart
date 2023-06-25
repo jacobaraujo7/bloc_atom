@@ -15,36 +15,39 @@ class BurgerReducer extends Reducer {
   }
 
   _fetchBurgs() async {
-    burgerLoadingState.value = true;
+    burgerState.value = burgerState.value.setLoading();
 
-    await service
+    final newState = await service
         .fetchBurgers() //
         .fold(
-          burgersState.setValue,
-          burgerErrorState.setValue,
+          burgerState.value.setBurgers,
+          burgerState.value.setError,
         );
 
-    burgerLoadingState.value = false;
+    burgerState.value = newState;
   }
 
   _addBurger() {
-    final burg = addBurgerToCartAction.value;
-    if (burg != null) {
-      cartBurgsState.value.add(burg);
-      cartBurgsState();
+    final burger = addBurgerToCartAction.value;
+    if (burger != null) {
+      final cart = burgerState.value.cartBurgers.toList();
+      cart.add(burger);
+      final newState = burgerState.value.setCartBurgers(cartBurgers: cart);
+      burgerState.value = newState;
     }
   }
 
   _removeBurger() {
-    final burg = removeBurgAction.value;
-    if (burg != null) {
-      cartBurgsState.value.remove(burg);
-      cartBurgsState();
+    final burger = addBurgerToCartAction.value;
+    if (burger != null) {
+      final cart = burgerState.value.cartBurgers.toList();
+      cart.remove(burger);
+      final newState = burgerState.value.setCartBurgers(cartBurgers: cart);
+      burgerState.value = newState;
     }
   }
 
   _cleanCart() {
-    cartBurgsState.value.clear();
-    cartBurgsState();
+    burgerState.value = burgerState.value.setCartBurgers(cartBurgers: []);
   }
 }
