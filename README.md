@@ -22,4 +22,4 @@ Have fun!
 
 ## TRIPLE
 
-- [Available on branch **cubit**](https://github.com/jacobaraujo7/bloc_atom/tree/triple).
+- [Available on branch **triple**](https://github.com/jacobaraujo7/bloc_atom/tree/triple).
