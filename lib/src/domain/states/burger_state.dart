@@ -1,4 +1,4 @@
-import 'package:atomic_state/src/data/exceptions/burger_exception.dart';
+import 'package:atomic_state/src/domain/exceptions/burger_exception.dart';
 import 'package:atomic_state/src/domain/models/burger_model.dart';
 
 sealed class BurgerState {

@@ -6,6 +6,7 @@ import 'package:uno/uno.dart';
 
 import 'src/app_widget.dart';
 import 'src/data/services/burger_service.dart';
+import 'src/domain/services/burger_service.dart';
 
 void main() {
   final app = MultiProvider(

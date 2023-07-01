@@ -1,9 +1,8 @@
-import 'package:atomic_state/src/data/services/burger_service.dart';
 import 'package:atomic_state/src/domain/states/burger_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:result_dart/result_dart.dart';
 
 import '../models/burger_model.dart';
+import '../services/burger_service.dart';
 
 class BurgerCubit extends Cubit<BurgerState> {
   final BurgerService service;
@@ -13,11 +12,9 @@ class BurgerCubit extends Cubit<BurgerState> {
   void fetchBurgersEvent() async {
     emit(state.setLoading());
 
-    final newState = await service
-        .fetchBurgers() //
-        .fold(state.setBurgers, state.setError);
-
-    emit(newState);
+    await service
+        .fetchBurgers(state) //
+        .then(emit);
   }
 
   void cleanCartBurgerEvent() async {
