@@ -1,4 +1,4 @@
-import 'package:atomic_state/src/domain/models/burger_model.dart';
+import 'package:atomic_state/src/interactor/models/burger_model.dart';
 import 'package:flutter/material.dart';
 
 class CartDrawer extends StatelessWidget {

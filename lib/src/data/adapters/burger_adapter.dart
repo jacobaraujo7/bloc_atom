@@ -1,6 +1,6 @@
 import 'package:dson_adapter/dson_adapter.dart';
 
-import '../../domain/models/burger_model.dart';
+import '../../interactor/models/burger_model.dart';
 
 class BurgerAdapter {
   BurgerAdapter._();

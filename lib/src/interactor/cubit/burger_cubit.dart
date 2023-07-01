@@ -1,4 +1,4 @@
-import 'package:atomic_state/src/domain/states/burger_state.dart';
+import 'package:atomic_state/src/interactor/states/burger_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../models/burger_model.dart';
@@ -33,5 +33,9 @@ class BurgerCubit extends Cubit<BurgerState> {
     cart.remove(burger);
     final newState = state.setCartBurgers(cartBurgers: cart);
     emit(newState);
+  }
+
+  void dispose() {
+    close();
   }
 }

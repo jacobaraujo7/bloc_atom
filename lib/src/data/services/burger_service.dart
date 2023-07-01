@@ -1,9 +1,9 @@
-import 'package:atomic_state/src/domain/states/burger_state.dart';
+import 'package:atomic_state/src/interactor/states/burger_state.dart';
 import 'package:dson_adapter/dson_adapter.dart';
 import 'package:uno/uno.dart';
 
-import '../../domain/exceptions/burger_exception.dart';
-import '../../domain/services/burger_service.dart';
+import '../../interactor/exceptions/burger_exception.dart';
+import '../../interactor/services/burger_service.dart';
 import '../adapters/burger_adapter.dart';
 
 class BurgerServiceImpl implements BurgerService {
@@ -17,7 +17,7 @@ class BurgerServiceImpl implements BurgerService {
       final response = await uno.get('http://localhost:3031/products');
       final list = response.data as List;
       final burgers = list.map(BurgerAdapter.fromMap).toList();
-      return state.setBurgers(burgers);
+      return GettedBurgerState(burgers: burgers, cartBurgers: []);
     } on UnoError catch (e, s) {
       final exception = BurgerServiceException(e.message, s);
       return state.setError(exception);

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:atomic_state/src/domain/cubit/burger_cubit.dart';
+import 'package:atomic_state/src/interactor/cubit/burger_cubit.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
