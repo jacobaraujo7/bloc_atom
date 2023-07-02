@@ -1,8 +1,8 @@
-import 'package:atomic_state/src/data/services/burger_service.dart';
-import 'package:atomic_state/src/domain/events/burger_event.dart';
-import 'package:atomic_state/src/domain/states/burger_state.dart';
+import 'package:atomic_state/src/interactor/events/burger_event.dart';
+import 'package:atomic_state/src/interactor/states/burger_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:result_dart/result_dart.dart';
+
+import '../services/burger_service.dart';
 
 class BurgerBloc extends Bloc<BurgerEvent, BurgerState> {
   final BurgerService service;
@@ -17,11 +17,9 @@ class BurgerBloc extends Bloc<BurgerEvent, BurgerState> {
   void _fetchBurgersEvent(event, emit) async {
     emit(state.setLoading());
 
-    final newState = await service
-        .fetchBurgers() //
-        .fold(state.setBurgers, state.setError);
-
-    emit(newState);
+    await service
+        .fetchBurgers(state) //
+        .then(emit);
   }
 
   void _cleanCartBurgerEvent(event, emit) async {

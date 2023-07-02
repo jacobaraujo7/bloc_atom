@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:atomic_state/src/domain/blocs/burger_bloc.dart';
-import 'package:atomic_state/src/domain/events/burger_event.dart';
+import 'package:atomic_state/src/interactor/blocs/burger_bloc.dart';
+import 'package:atomic_state/src/interactor/events/burger_event.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
