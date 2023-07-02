@@ -26,9 +26,7 @@ mixin BurgerController on State<HomePage> {
     if (newState == state) {
       return;
     }
-    setState(() {
-      state = newState;
-    });
+    setState(() => state = newState);
     _endDrawerListener();
   }
 
