@@ -3,6 +3,9 @@
 Each branch represents a state management approach.
 Have fun!
 
+## PURE MVC
+
+- [Available on branch **mvc**](https://github.com/jacobaraujo7/bloc_atom/tree/mvc).
 ## ChangeNotifier
 
 - [Available on branch **main**](https://github.com/jacobaraujo7/bloc_atom).
