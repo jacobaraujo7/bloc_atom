@@ -1,8 +1,5 @@
-import 'package:atomic_state/src/interactor/models/burger_model.dart';
-import 'package:result_dart/result_dart.dart';
-
-import '../exceptions/burger_exception.dart';
+import 'package:atomic_state/src/interactor/state/burger_state.dart';
 
 abstract interface class BurgerService {
-  AsyncResult<List<BurgerModel>, BurgerException> fetchBurgers();
+  Future<BurgerState> fetchBurgers(BurgerState state);
 }
