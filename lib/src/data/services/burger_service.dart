@@ -14,8 +14,11 @@ class BurgerServiceImpl implements BurgerService {
   @override
   Future<BurgerState> fetchBurgers(BurgerState state) async {
     try {
-      final response = await uno.get('http://localhost:3031/products');
-      final list = response.data as List;
+      final response = await uno.get(
+        'https://raw.githubusercontent.com/jacobaraujo7/bloc_atom/asp/server/db.json',
+        responseType: ResponseType.json,
+      );
+      final list = response.data['products'] as List;
       final burgers = list.map(BurgerAdapter.fromMap).toList();
       return GettedBurgerState(burgers: burgers, cartBurgers: []);
     } on UnoError catch (e, s) {
