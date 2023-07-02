@@ -3,15 +3,19 @@
 Each branch represents a state management approach.
 Have fun!
 
-## CHANGENOTIFIER
+## ChangeNotifier
 
 - [Available on branch **main**](https://github.com/jacobaraujo7/bloc_atom).
 
-## ASP
+## ValueNotifier
 
-- [Available on branch **asp**](https://github.com/jacobaraujo7/bloc_atom/tree/asp).
+- [Available on branch **valuenotifier**](https://github.com/jacobaraujo7/bloc_atom/tree/valuenotifier).
 
-## ASP WITH STATE PATTERN
+## MobX
+
+- [Available on branch **mobx**](https://github.com/jacobaraujo7/bloc_atom/tree/mobx).
+
+## ASP(Atomic State Pattern)
 
 - [Available on branch **asp_with_state**](https://github.com/jacobaraujo7/bloc_atom/tree/asp_with_state).
 
