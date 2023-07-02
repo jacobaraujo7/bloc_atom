@@ -11,28 +11,22 @@ class BurgerStore extends ValueNotifier<BurgerState> {
 
   Future<void> fetchBurgs() async {
     value = value.setLoading();
-    notifyListeners();
-
     value = await service.fetchBurgers(value);
-    notifyListeners();
   }
 
   void cleanCartBurger() async {
     value = value.setCartBurgers(cartBurgers: []);
-    notifyListeners();
   }
 
   void addBurgerToCart(BurgerModel burger) async {
     final cart = value.cartBurgers.toList();
     cart.add(burger);
     value = value.setCartBurgers(cartBurgers: cart);
-    notifyListeners();
   }
 
   void removeBurgerToCart(BurgerModel burger) async {
     final cart = value.cartBurgers.toList();
     cart.remove(burger);
     value = value.setCartBurgers(cartBurgers: cart);
-    notifyListeners();
   }
 }
