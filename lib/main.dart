@@ -1,5 +1,5 @@
-import 'package:atomic_state/src/domain/services/burger_service.dart';
-import 'package:atomic_state/src/domain/store/burger_store.dart';
+import 'package:atomic_state/src/interactor/services/burger_service.dart';
+import 'package:atomic_state/src/interactor/store/burger_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_triple/flutter_triple.dart';
 import 'package:provider/provider.dart';

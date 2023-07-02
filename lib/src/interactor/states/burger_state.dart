@@ -1,4 +1,4 @@
-import 'package:atomic_state/src/domain/models/burger_model.dart';
+import 'package:atomic_state/src/interactor/models/burger_model.dart';
 
 sealed class BurgerState {
   final List<BurgerModel> burgers;

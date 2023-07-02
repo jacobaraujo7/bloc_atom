@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_triple/flutter_triple.dart';
 import 'package:provider/provider.dart' hide SelectContext;
 
-import '../../domain/store/burger_store.dart';
+import '../../interactor/store/burger_store.dart';
 import '../widgets/burger_card.dart';
 import '../widgets/cart_drawer.dart';
 

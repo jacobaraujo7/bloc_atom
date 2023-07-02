@@ -1,4 +1,4 @@
-import 'package:atomic_state/src/domain/states/burger_state.dart';
+import 'package:atomic_state/src/interactor/states/burger_state.dart';
 import 'package:flutter_triple/flutter_triple.dart';
 
 import '../models/burger_model.dart';
