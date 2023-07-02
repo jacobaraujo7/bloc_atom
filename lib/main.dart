@@ -12,8 +12,7 @@ void main() {
     providers: [
       Provider.value(value: Uno()),
       Provider<BurgerService>(create: (ctx) => BurgerServiceImpl(ctx.read())),
-      // ASP
-      ChangeNotifierProvider(create: (ctx) => BurgerStore(ctx.read())),
+      Provider(create: (ctx) => BurgerStore(ctx.read())),
     ],
     child: const AppWidget(),
   );

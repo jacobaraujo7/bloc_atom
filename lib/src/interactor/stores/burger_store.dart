@@ -1,38 +1,44 @@
-import 'package:flutter/material.dart';
+import 'package:mobx/mobx.dart';
 
 import '../models/burger_model.dart';
 import '../services/burger_service.dart';
 import '../state/burger_state.dart';
 
-class BurgerStore extends ValueNotifier<BurgerState> {
+part 'burger_store.g.dart';
+
+class BurgerStore = _BurgerStoreBase with _$BurgerStore;
+
+abstract class _BurgerStoreBase with Store {
   final BurgerService service;
 
-  BurgerStore(this.service) : super(BurgerState.start());
+  @observable
+  BurgerState state = BurgerState.start();
 
+  _BurgerStoreBase(this.service);
+
+  @action
   Future<void> fetchBurgs() async {
-    value = value.setLoading();
-    notifyListeners();
+    state = state.setLoading();
 
-    value = await service.fetchBurgers(value);
-    notifyListeners();
+    state = await service.fetchBurgers(state);
   }
 
-  void cleanCartBurger() async {
-    value = value.setCartBurgers(cartBurgers: []);
-    notifyListeners();
+  @action
+  void cleanCartBurger() {
+    state = state.setCartBurgers(cartBurgers: []);
   }
 
-  void addBurgerToCart(BurgerModel burger) async {
-    final cart = value.cartBurgers.toList();
+  @action
+  void addBurgerToCart(BurgerModel burger) {
+    final cart = state.cartBurgers.toList();
     cart.add(burger);
-    value = value.setCartBurgers(cartBurgers: cart);
-    notifyListeners();
+    state = state.setCartBurgers(cartBurgers: cart);
   }
 
-  void removeBurgerToCart(BurgerModel burger) async {
-    final cart = value.cartBurgers.toList();
+  @action
+  void removeBurgerToCart(BurgerModel burger) {
+    final cart = state.cartBurgers.toList();
     cart.remove(burger);
-    value = value.setCartBurgers(cartBurgers: cart);
-    notifyListeners();
+    state = state.setCartBurgers(cartBurgers: cart);
   }
 }
