@@ -1,4 +1,4 @@
-import 'package:atomic_state/src/interactor/controllers/burger_controller.dart';
+import 'package:atomic_state/src/interactor/stores/burger_store.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -22,29 +22,29 @@ class _HomePageState extends State<HomePage> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      context.read<BurgerController>()
+      context.read<BurgerStore>()
         ..fetchBurgs()
         ..addListener(_endDrawerListener);
     });
   }
 
   void _endDrawerListener() {
-    final controller = context.read<BurgerController>();
-    if (controller.state.cartBurgers.isEmpty && scaffoldState.isEndDrawerOpen) {
+    final controller = context.read<BurgerStore>();
+    if (controller.value.cartBurgers.isEmpty && scaffoldState.isEndDrawerOpen) {
       scaffoldState.closeEndDrawer();
     }
   }
 
   @override
   void dispose() {
-    context.read<BurgerController>().removeListener(_endDrawerListener);
+    context.read<BurgerStore>().removeListener(_endDrawerListener);
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final controller = context.watch<BurgerController>();
-    final state = controller.state;
+    final controller = context.watch<BurgerStore>();
+    final state = controller.value;
 
     return Scaffold(
       key: scaffoldKey,
