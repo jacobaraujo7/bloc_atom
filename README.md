@@ -1,8 +1,11 @@
-# ASP X BLOC X CUBIT X TRIPLE
+# CHANGENOTIFIER X ASP X BLOC X CUBIT X TRIPLE
 
 Each branch represents a state management approach.
 Have fun!
 
+## CHANGENOTIFIER
+
+- [Available on branch **main**](https://github.com/jacobaraujo7/bloc_atom).
 
 ## ASP
 

@@ -2,7 +2,7 @@ import 'package:asp/asp.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 
-import '../../domain/atom/burger_atom.dart';
+import '../../interactor/atom/burger_atom.dart';
 import '../widgets/burger_card.dart';
 import '../widgets/cart_drawer.dart';
 

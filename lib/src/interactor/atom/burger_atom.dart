@@ -1,6 +1,6 @@
 import 'package:asp/asp.dart';
-import 'package:atomic_state/src/data/exceptions/burger_exception.dart';
-import 'package:atomic_state/src/domain/models/burger_model.dart';
+import 'package:atomic_state/src/interactor/exceptions/burger_exception.dart';
+import 'package:atomic_state/src/interactor/models/burger_model.dart';
 
 // atoms
 final burgersState = Atom<List<BurgerModel>>([]);
