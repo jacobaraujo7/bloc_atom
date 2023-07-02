@@ -1,4 +1,3 @@
-import 'package:atomic_state/src/interactor/controllers/burger_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uno/uno.dart';
@@ -12,8 +11,6 @@ void main() {
     providers: [
       Provider.value(value: Uno()),
       Provider<BurgerService>(create: (ctx) => BurgerServiceImpl(ctx.read())),
-      // ASP
-      ChangeNotifierProvider(create: (ctx) => BurgerController(ctx.read())),
     ],
     child: const AppWidget(),
   );
