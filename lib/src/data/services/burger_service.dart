@@ -1,14 +1,10 @@
-import 'package:atomic_state/src/domain/models/burger_model.dart';
 import 'package:dson_adapter/dson_adapter.dart';
-import 'package:result_dart/result_dart.dart';
 import 'package:uno/uno.dart';
 
+import '../../interactor/exceptions/burger_exception.dart';
+import '../../interactor/services/burger_service.dart';
+import '../../interactor/states/burger_state.dart';
 import '../adapters/burger_adapter.dart';
-import '../exceptions/burger_exception.dart';
-
-abstract interface class BurgerService {
-  AsyncResult<List<BurgerModel>, BurgerException> fetchBurgers();
-}
 
 class BurgerServiceImpl implements BurgerService {
   final Uno uno;
@@ -16,16 +12,18 @@ class BurgerServiceImpl implements BurgerService {
   BurgerServiceImpl(this.uno);
 
   @override
-  AsyncResult<List<BurgerModel>, BurgerException> fetchBurgers() async {
+  Future<BurgerState> fetchBurgers(BurgerState state) async {
     try {
       final response = await uno.get('http://localhost:3031/products');
       final list = response.data as List;
       final burgers = list.map(BurgerAdapter.fromMap).toList();
-      return Result.success(burgers);
+      return state.setBurgers(burgers);
     } on UnoError catch (e, s) {
-      return Result.failure(BurgerServiceException(e.message, s));
+      final exception = BurgerServiceException(e.message, s);
+      return state.setError(exception);
     } on DSONException catch (e, s) {
-      return Result.failure(BurgerServiceException(e.message, s));
+      final exception = BurgerServiceException(e.message, s);
+      return state.setError(exception);
     }
   }
 }

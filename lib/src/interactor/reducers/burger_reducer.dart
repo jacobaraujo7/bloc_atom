@@ -1,8 +1,7 @@
 import 'package:asp/asp.dart';
-import 'package:atomic_state/src/domain/atom/burger_atom.dart';
-import 'package:result_dart/result_dart.dart';
+import 'package:atomic_state/src/interactor/atom/burger_atom.dart';
 
-import '../../data/services/burger_service.dart';
+import '../services/burger_service.dart';
 
 class BurgerReducer extends Reducer {
   final BurgerService service;
@@ -17,14 +16,10 @@ class BurgerReducer extends Reducer {
   _fetchBurgs() async {
     burgerState.value = burgerState.value.setLoading();
 
-    final newState = await service
-        .fetchBurgers() //
-        .fold(
-          burgerState.value.setBurgers,
-          burgerState.value.setError,
-        );
-
-    burgerState.value = newState;
+    await service
+        .fetchBurgers(burgerState.value) //
+        .then(burgerState.setValue)
+        .onError((error, stackTrace) => burgerState.value.setError);
   }
 
   _addBurger() {

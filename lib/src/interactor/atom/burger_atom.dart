@@ -1,5 +1,5 @@
 import 'package:asp/asp.dart';
-import 'package:atomic_state/src/domain/models/burger_model.dart';
+import 'package:atomic_state/src/interactor/models/burger_model.dart';
 
 import '../states/burger_state.dart';
 
