@@ -1,4 +1,4 @@
-# CHANGENOTIFIER X ASP X BLOC X CUBIT X TRIPLE
+# ChangeNotifier X ValueNotifier x MobX X ASP X BLOC X CUBIT X TRIPLE
 
 Each branch represents a state management approach.
 Have fun!
