@@ -1,7 +1,7 @@
-import 'package:atomic_state/src/interactor/atom/burger_atom.dart';
 import 'package:atomic_state/src/interactor/state/burger_state.dart';
 import 'package:flutter/material.dart';
 
+import '../models/burger_model.dart';
 import '../services/burger_service.dart';
 
 class BurgerController extends ChangeNotifier {
@@ -20,24 +20,22 @@ class BurgerController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addBurger() {
-    final burg = addBurgerToCartAction.value;
-    if (burg != null) {
-      cartBurgsState.value.add(burg);
-      cartBurgsState();
-    }
+  void cleanCartBurger() async {
+    _state = state.setCartBurgers(cartBurgers: []);
+    notifyListeners();
   }
 
-  void removeBurger() {
-    final burg = removeBurgAction.value;
-    if (burg != null) {
-      cartBurgsState.value.remove(burg);
-      cartBurgsState();
-    }
+  void addBurgerToCart(BurgerModel burger) async {
+    final cart = state.cartBurgers.toList();
+    cart.add(burger);
+    _state = state.setCartBurgers(cartBurgers: cart);
+    notifyListeners();
   }
 
-  cleanCart() {
-    cartBurgsState.value.clear();
-    cartBurgsState();
+  void removeBurgerToCart(BurgerModel burger) async {
+    final cart = state.cartBurgers.toList();
+    cart.remove(burger);
+    _state = state.setCartBurgers(cartBurgers: cart);
+    notifyListeners();
   }
 }

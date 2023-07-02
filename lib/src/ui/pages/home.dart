@@ -1,8 +1,8 @@
-import 'package:asp/asp.dart';
+import 'package:atomic_state/src/interactor/controllers/burger_controller.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import '../../interactor/atom/burger_atom.dart';
 import '../widgets/burger_card.dart';
 import '../widgets/cart_drawer.dart';
 
@@ -17,30 +17,34 @@ class _HomePageState extends State<HomePage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   ScaffoldState get scaffoldState => scaffoldKey.currentState!;
 
-  late final RxDisposer _endDrawerListener;
-
   @override
   void initState() {
     super.initState();
-    fetchBurgsAction();
-    _endDrawerListener = rxObserver(
-      () => cartBurgsState.value,
-      filter: () => cartBurgsState.value.isEmpty,
-      effect: (value) => scaffoldState.closeEndDrawer(),
-    );
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      context.read<BurgerController>()
+        ..fetchBurgs()
+        ..addListener(_endDrawerListener);
+    });
+  }
+
+  void _endDrawerListener() {
+    final controller = context.read<BurgerController>();
+    if (controller.state.cartBurgers.isEmpty && scaffoldState.isEndDrawerOpen) {
+      scaffoldState.closeEndDrawer();
+    }
   }
 
   @override
   void dispose() {
-    _endDrawerListener();
+    context.read<BurgerController>().removeListener(_endDrawerListener);
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final (burgers, isLoading, cartBurgers) = context.select(
-      () => (burgersState.value, burgerLoadingState.value, cartBurgsState.value),
-    );
+    final controller = context.watch<BurgerController>();
+    final state = controller.state;
 
     return Scaffold(
       key: scaffoldKey,
@@ -50,9 +54,9 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
       ),
       endDrawer: CartDrawer(
-        burgers: cartBurgers,
-        onFinalize: cleanCartAction,
-        onRemove: removeBurgAction.setValue,
+        burgers: state.cartBurgers,
+        onFinalize: controller.cleanCartBurger,
+        onRemove: controller.removeBurgerToCart,
       ),
       body: Stack(
         children: [
@@ -60,18 +64,18 @@ class _HomePageState extends State<HomePage> {
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
             ),
-            itemCount: burgers.length,
+            itemCount: state.burgers.length,
             itemBuilder: (context, index) {
-              final model = burgers[index];
+              final model = state.burgers[index];
               return BurgerCard(
                 model: model,
                 onTap: () {
-                  addBurgerToCartAction.setValue(model);
+                  controller.addBurgerToCart(model);
                 },
               );
             },
           ),
-          if (isLoading)
+          if (state.loading)
             const Align(
               alignment: Alignment.topCenter,
               child: LinearProgressIndicator(),
@@ -80,12 +84,12 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          if (cartBurgers.isNotEmpty) {
+          if (state.cartBurgers.isNotEmpty) {
             scaffoldState.openEndDrawer();
           }
         },
         child: badges.Badge(
-          badgeContent: Text('${cartBurgsState.value.length}'),
+          badgeContent: Text('${state.cartBurgers.length}'),
           child: const Icon(Icons.shopping_bag_outlined),
         ),
       ),
