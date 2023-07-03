@@ -37,8 +37,4 @@ class BurgerCubit extends Cubit<BurgerState> {
     final newState = state.setCartBurgers(cartBurgers: cart);
     emit(newState);
   }
-
-  void dispose() {
-    close();
-  }
 }
