@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../interactor/models/burger_model.dart';
+import '../../domain/entities/burger_entity.dart';
 
 class BurgerCard extends StatelessWidget {
-  final BurgerModel model;
+  final BurgerEntity model;
   final void Function()? onTap;
   const BurgerCard({
     super.key,

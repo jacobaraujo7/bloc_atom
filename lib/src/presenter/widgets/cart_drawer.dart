@@ -1,10 +1,10 @@
-import 'package:atomic_state/src/interactor/models/burger_model.dart';
+import 'package:atomic_state/src/domain/entities/burger_entity.dart';
 import 'package:flutter/material.dart';
 
 class CartDrawer extends StatelessWidget {
-  final List<BurgerModel> burgers;
+  final List<BurgerEntity> burgers;
   final void Function()? onFinalize;
-  final void Function(BurgerModel burger)? onRemove;
+  final void Function(BurgerEntity burger)? onRemove;
 
   const CartDrawer({super.key, required this.burgers, this.onFinalize, this.onRemove});
 
