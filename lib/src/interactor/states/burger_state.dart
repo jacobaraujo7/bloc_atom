@@ -1,9 +1,9 @@
+import 'package:atomic_state/src/interactor/entities/burger_entity.dart';
 import 'package:atomic_state/src/interactor/exceptions/burger_exception.dart';
-import 'package:atomic_state/src/interactor/models/burger_model.dart';
 
 sealed class BurgerState {
-  final List<BurgerModel> burgers;
-  final List<BurgerModel> cartBurgers;
+  final List<BurgerEntity> burgers;
+  final List<BurgerEntity> cartBurgers;
   final bool loading;
   final BurgerException? exception;
 
@@ -17,7 +17,7 @@ sealed class BurgerState {
   factory BurgerState.start() => const StartBurgerState();
 
   BurgerState setBurgers(
-    List<BurgerModel> burgers,
+    List<BurgerEntity> burgers,
   ) {
     return GettedBurgerState(
       burgers: burgers,
@@ -26,8 +26,8 @@ sealed class BurgerState {
   }
 
   BurgerState setCartBurgers({
-    List<BurgerModel>? burgers,
-    List<BurgerModel>? cartBurgers,
+    List<BurgerEntity>? burgers,
+    List<BurgerEntity>? cartBurgers,
   }) {
     return GettedBurgerState(
       burgers: burgers ?? this.burgers,
